@@ -1,5 +1,5 @@
 """
-Use the yfinance library to download historical stock data for Apple (AAPL) between January 1, 2022, and March 10, 2022.
+Use the yfinance library to download historical stock data for Apple (AAPL) between January 1, 2022, and December 31, 2022.
 We, then, calculate the daily returns and use the 50-day and 200-day moving averages as features and
 the sign of the daily return as the target variable.
 We split the data into training and testing sets and train a Random Forest classifier on the training data.
@@ -7,9 +7,9 @@ We, then, make predictions on the testing set and calculate the accuracy of the 
 Finally, we use the trained classifier to generate trading signals and calculate the strategy returns and cumulative returns.
 """
 
-import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import yfinance as yf
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
@@ -37,7 +37,8 @@ X = data[['ma50', 'ma200']]
 y = np.where(data['return'] > 0, 1, -1)
 
 # Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, train_size=0.8, test_size=0.2, random_state=42)
 
 # Train a Random Forest classifier
 clf = RandomForestClassifier(n_estimators=100, random_state=42)
